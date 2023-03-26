@@ -10,9 +10,11 @@ pipeline {
 
 	}
 	}
-	stage('build using maven'){
+	stage('build using maven'){ 
+		steps{	
 
 	sh 'mvn clean package'
-	}
+		}
+		}
 	}
 }

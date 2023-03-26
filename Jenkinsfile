@@ -33,8 +33,10 @@ pipeline {
 	}
 	stage('Run Docker container on Jenkins Agent'){
 	steps{
+		script{
 	
 	sh "docker run -d --name webcontainer("$BUILD_NUMBER") -p 8003:8080 nandkumar80/samplewebapp:$BUILD_NUMBER"
+	}
 	}
 	}
 	}

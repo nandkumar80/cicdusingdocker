@@ -16,5 +16,24 @@ pipeline {
 	sh 'mvn clean package'
 		}
 		}
+
+	stage('build docker image and tag'){
+	  steps{
+	 sh 'docker build -t samplewebapp:latest .'
+	 sh 'docker tag samplewebapp nandkumar80/samplewebapp:$BUILD_NUMBER'
+	 }
+	}
+	stage('docker image push to dockerhub'){
+	 steps{
+	   withCredentials([string(credentialsId: 'dockerhubpasswd', variable: 'dockerhubpwd')]) {
+       sh 'docker push nandkumar80/samplewebapp:$BUILD_NUMBER' 
+	}
+	 }
+	}
+	stage('Run Docker container on Jenkins Agent'){
+	steps{
+	sh "docker run -d --name webcontainer -p 8003:8080 nandkumar80/samplewebapp"
+	}
+	}
 	}
 }

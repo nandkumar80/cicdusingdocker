@@ -19,6 +19,7 @@ pipeline {
 
 	stage('build docker image and tag'){
 	  steps{
+	sh 'who && pwd'	  
 	 sh 'docker build -t samplewebapp:latest .'
 	 sh 'docker tag samplewebapp nandkumar80/samplewebapp:$BUILD_NUMBER'
 	 }
